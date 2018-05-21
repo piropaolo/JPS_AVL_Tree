@@ -203,6 +203,15 @@ class AVLTreeTest extends FunSuite{
     assert(math.abs(AVLNode.getBalance(treeDeleted)) <= 1)
   }
 
+  test("Tree is the same after deletion value not present in original tree"){
+    val tree = AVLNode(5, AVLNode(3), AVLNode(6, AVLNil, AVLNode(7)))
+
+    val treeDeleted = AVLNode.remove(70)(tree)
+
+    assert(tree == treeDeleted)
+  }
+
+
 
 }
 
