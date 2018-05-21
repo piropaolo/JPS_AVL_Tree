@@ -1,3 +1,5 @@
+import AVLNode._
+
 import org.scalatest.FunSuite
 
 class AVLTreeTest extends FunSuite{
@@ -211,8 +213,72 @@ class AVLTreeTest extends FunSuite{
     assert(tree == treeDeleted)
   }
 
+  test("Union of two AVLNils is AVLNil"){
+    val t1 = AVLNil
+    val t2 = AVLNil
 
+    assert(union(t1)(t2) == AVLNil)
+  }
 
+  test("Union of one tree and AVLNil is the first tree"){
+    val t1 = AVLNode(7, AVLNode(1), AVLNode(8))
+    val t2 = AVLNil
+
+    assert(union(t1)(t2) == t1)
+  }
+
+  test("Union of two trees is computed properly"){
+    val t1 = AVLNode(7, AVLNode(1), AVLNode(8))
+    val t2 = AVLNode(6, AVLNode(0), AVLNode(9))
+
+    val temp = AVLNil
+    val temp1 = insert(7)(temp)
+    val temp2 = insert(1)(temp1)
+    val temp3 = insert(8)(temp2)
+    val temp4 = insert(6)(temp3)
+    val temp5 = insert(0)(temp4)
+    val temp6 = insert(9)(temp5)
+
+    print(union(t2)(t1) == temp6)
+  }
+
+  test("Intersection of two AVLNils is AVLNil"){
+    val t1 = AVLNil
+    val t2 = AVLNil
+
+    assert(intersect(t1)(t2) == AVLNil)
+  }
+
+  test("Intersection of one tree and AVLNil is AVLNil"){
+    val t1 = AVLNode(7, AVLNode(1), AVLNode(8))
+    val t2 = AVLNil
+
+    assert(intersect(t1)(t2) == AVLNil)
+  }
+
+  test("Intersection of separate trees is AVLNil"){
+    val t1 = AVLNode(7, AVLNode(1), AVLNode(8))
+    val t2 = AVLNode(6, AVLNode(0), AVLNode(9))
+
+    assert(intersect(t1)(t2) == AVLNil)
+  }
+
+  test("Intersection of two instances of one tree produces this tree"){
+    val t1 = AVLNode(7, AVLNode(1), AVLNode(8))
+
+    assert(intersect(t1)(t1) == t1)
+  }
+
+  test("Intersection of two trees is computed properly"){
+    val t1 = AVLNode(6, AVLNode(0), AVLNode(8))
+    val t2 = AVLNode(6, AVLNode(0), AVLNode(9))
+
+    val temp = AVLNil
+    val temp1 = insert(6)(temp)
+    val temp2 = insert(0)(temp1)
+
+    assert(intersect(t1)(t2) == temp2)
+  }
 }
 
 

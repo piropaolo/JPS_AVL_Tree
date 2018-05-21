@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 sealed abstract class AVLTree[+A]
 
 /**Null-Node object.
@@ -295,5 +297,26 @@ object AVLNode {
     }
   }
 
+  @tailrec
+  def union[A: Ordering](that: AVLTree[A])(tree: AVLTree[A]): AVLTree[A] =
+    that match {
+      case AVLNil => tree
+      case AVLNode(data, _, _) => union(remove(data)(that))(insert(data)(tree))
+    }
 
+
+  def intersect[A: Ordering](that: AVLTree[A])(tree: AVLTree[A]): AVLTree[A] = {
+    @tailrec
+    def innerIntersect(that: AVLTree[A])(tree: AVLTree[A])(res: AVLTree[A] = AVLNil): AVLTree[A] = {
+      that match {
+        case AVLNil => res
+        case AVLNode(data, _, _) =>
+          if (search(data)(tree))
+            innerIntersect(remove(data)(that))(tree)(insert(data)(res))
+          else
+            innerIntersect(remove(data)(that))(tree)(res)
+      }
+    }
+    innerIntersect(that)(tree)()
+  }
 }
