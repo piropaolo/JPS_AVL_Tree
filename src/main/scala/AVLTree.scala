@@ -297,6 +297,13 @@ object AVLNode {
     }
   }
 
+  /** Computes union of two tree sets.
+    *
+    * @param that tree to perform union on
+    * @param tree tree to perform union on
+    * @tparam A data type
+    * @return tree set that contains elements from both initial sets
+    */
   @tailrec
   def union[A: Ordering](that: AVLTree[A])(tree: AVLTree[A]): AVLTree[A] =
     that match {
@@ -305,6 +312,13 @@ object AVLNode {
     }
 
 
+  /** Computes intersection of two tree sets.
+    *
+    * @param that tree to perform intersect on
+    * @param tree tree to perform intersect on
+    * @tparam A data type
+    * @return tree set that contains elements that where present in both initial sets
+    */
   def intersect[A: Ordering](that: AVLTree[A])(tree: AVLTree[A]): AVLTree[A] = {
     @tailrec
     def innerIntersect(that: AVLTree[A])(tree: AVLTree[A])(res: AVLTree[A] = AVLNil): AVLTree[A] = {
