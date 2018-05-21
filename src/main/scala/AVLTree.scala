@@ -137,7 +137,7 @@ object AVLNode {
   }
 
   def remove[A: Ordering](dataRemove: A)(tree: AVLTree[A]): AVLTree[A] = {
-    val deletedImbalanced = removeImbalanced(dataRemove)(tree)
+    val deletedImbalanced = removeUmbalanced(dataRemove)(tree)
     val balance = getBalance(tree)
 
     deletedImbalanced match {
@@ -162,14 +162,14 @@ object AVLNode {
 
   }
 
-  def removeImbalanced[A: Ordering](dataRemove: A)(tree: AVLTree[A]): AVLTree[A] = {
+  def removeUmbalanced[A: Ordering](dataRemove: A)(tree: AVLTree[A]): AVLTree[A] = {
     tree match {
       case AVLNil => tree // exception??
       case AVLNode(data, left, right) =>
         val order = Ordering[A].compare(dataRemove, data)
         order match {
-          case -1 => AVLNode(data, removeImbalanced(dataRemove)(left), right)
-          case 1 => AVLNode(data, left, removeImbalanced(dataRemove)(right))
+          case -1 => AVLNode(data, removeUmbalanced(dataRemove)(left), right)
+          case 1 => AVLNode(data, left, removeUmbalanced(dataRemove)(right))
           case 0 =>
             if (left == AVLNil || right == AVLNil){ // no child or one child
               val temp = if (left != AVLNil) left else right
@@ -180,7 +180,7 @@ object AVLNode {
             }
             else { // two children case, get the inorder successor (smallest key value)
               val successorValue = getMinValue(right)
-              AVLNode(successorValue, left, removeImbalanced(successorValue)(right))
+              AVLNode(successorValue, left, removeUmbalanced(successorValue)(right))
             }
         }
     }
