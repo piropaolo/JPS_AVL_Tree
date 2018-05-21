@@ -239,7 +239,7 @@ class AVLTreeTest extends FunSuite{
     val temp5 = insert(0)(temp4)
     val temp6 = insert(9)(temp5)
 
-    assert(union(t2)(t1) == temp6)
+    assert(union(t1)(t2) == temp6)
   }
 
   test("Intersection of two AVLNils is AVLNil"){
