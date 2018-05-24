@@ -123,6 +123,7 @@ object AVLNode {
     * @tparam A data type
     * @return true if value present in a tree, false if not
     */
+  @tailrec
   def search[A: Ordering](value: A)(tree: AVLTree[A]): Boolean = {
     tree match {
       case AVLNil => false
@@ -202,6 +203,7 @@ object AVLNode {
     * @tparam A data type
     * @return minimum value of a tree
     */
+  @tailrec
   def getMinValue[A](tree: AVLTree[A]): A = {
     tree match {
       case AVLNil => throw new RuntimeException("Empty tree")
@@ -219,6 +221,7 @@ object AVLNode {
     * @tparam A data type
     * @return maximum value of a tree
     */
+  @tailrec
   def getMaxValue[A](tree: AVLTree[A]): A = {
     tree match {
       case AVLNil => throw new RuntimeException("Empty tree")
